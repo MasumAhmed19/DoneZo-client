@@ -1,45 +1,61 @@
 @import "tailwindcss";
-@plugin "daisyui" ;
-@plugin "daisyui/theme" {
-  name: "mytheme";
-  default: true; /* set as default */
-  prefersdark: false; /* set as default dark mode (prefers-color-scheme:dark) */
-  color-scheme: light; /* color of browser-provided UI */
+@plugin "daisyui";
 
-  --color-base-100: oklch(98% 0.02 240);
-  --color-base-200: oklch(95% 0.03 240);
-  --color-base-300: oklch(92% 0.04 240);
-  --color-base-content: oklch(20% 0.05 240);
-  --color-primary: oklch(55% 0.3 240);
-  --color-primary-content: oklch(98% 0.01 240);
-  --color-secondary: oklch(70% 0.25 200);
-  --color-secondary-content: oklch(98% 0.01 200);
-  --color-accent: oklch(65% 0.25 160);
-  --color-accent-content: oklch(98% 0.01 160);
-  --color-neutral: oklch(50% 0.05 240);
-  --color-neutral-content: oklch(98% 0.01 240);
-  --color-info: oklch(70% 0.2 220);
-  --color-info-content: oklch(98% 0.01 220);
-  --color-success: oklch(65% 0.25 140);
-  --color-success-content: oklch(98% 0.01 140);
-  --color-warning: oklch(80% 0.25 80);
-  --color-warning-content: oklch(20% 0.05 80);
-  --color-error: oklch(65% 0.3 30);
-  --color-error-content: oklch(98% 0.01 30);
+@theme {
+  /* custom fonts */
+  --font-fraunces: "Fraunces", serif;
+  --font-inter: "Inter", serif;
+  --font-noto: "Noto Sans", sans-serif; 
 
-  /* border radius */
-  --radius-selector: 1rem;
-  --radius-field: 0.25rem;
-  --radius-box: 0.5rem;
+/* Custom Color */
+--color-primary: #017afc;
+--color-primary-content: #fdfeff;
+--color-primary-dark: #0161c9;
+--color-primary-light: #3294fe;
 
-  /* base sizes */
-  --size-selector: 0.25rem;
-  --size-field: 0.25rem;
+--color-secondary: #01fc06;
+--color-secondary-content: #000000;
+--color-secondary-dark: #01c905;
+--color-secondary-light: #32fe36;
 
-  /* border size */
-  --border: 1px;
+--color-background: #f0f0f0;
+--color-foreground: #fbfbfb;
+--color-border: #dfdfdf;
 
-  /* effects */
-  --depth: 1;
-  --noise: 0;
+--color-copy: #262626;
+--color-copy-light: #666666;
+--color-copy-lighter: #8c8c8c;
+
+--color-success: #01fc01;
+--color-warning: #fcfc01;
+--color-error: #fc0101;
+--color-success-content: #000000;
+--color-warning-content: #000000;
+--color-error-content: #fffdfd;
+
+}
+
+
+.head1 {
+  @apply text-4xl font-bold text-gray-900 leading-tight;
+}
+
+.head2 {
+  @apply text-3xl font-semibold text-gray-800 leading-snug;
+}
+
+.head3 {
+  @apply text-2xl font-medium text-gray-700 leading-normal;
+}
+
+.para1 {
+  @apply text-lg text-gray-600 leading-relaxed;
+}
+
+.para2 {
+  @apply text-base text-gray-500 leading-loose;
+}
+
+.para3 {
+  @apply text-xs text-gray-400 leading-normal;
 }

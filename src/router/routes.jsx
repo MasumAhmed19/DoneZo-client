@@ -4,6 +4,7 @@ import Dashboard from "../page/dashboard/Dashboard";
 import ErrorPage from "../page/ErrorPage/ErrorPage";
 import Home from "../page/Home/Home";
 import Login from "../page/Login/Login";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
     {
@@ -21,7 +22,7 @@ export const router = createBrowserRouter([
         element: <Login />
     },{
         path: "/dashboard",
-        element: <Dashboard />
+        element: <PrivateRoute><Dashboard /></PrivateRoute>
     }
     
   ]);

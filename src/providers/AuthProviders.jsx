@@ -7,6 +7,8 @@ import {
     signInWithPopup,
     signOut,
   } from 'firebase/auth'
+import axios from 'axios';
+
 
 export const AuthContext = createContext(null)
 const auth = getAuth(app)
@@ -17,9 +19,23 @@ const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true)
   
   
-    const signInWithGoogle = () => {
+    const signInWithGoogle = async () => {
       setLoading(true)
-      return signInWithPopup(auth, googleProvider)
+      try{
+        const result = await signInWithPopup(auth, googleProvider);
+        const data = result.user;
+
+        const userData = {
+          email: data.email,
+          displayName: data.displayName,
+          photoURL: data.photoURL,
+        }
+
+        const response = await axios.post(`${import.meta.env.VITE_URL}/add-users`, userData)
+
+      }catch(err){
+        console.log(err)
+      }
     }
   
     const logOut = async () => {
