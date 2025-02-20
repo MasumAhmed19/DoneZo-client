@@ -37,7 +37,7 @@ const Rated = () => {
 
             <div className="pt-5 sm:pt-0 sm:ps-5">
               <div className="text-lg font-semibold text-gray-800 ">
-                Used By
+                Trusted by
               </div>
               <div className="text-sm text-gray-500 ">
                 Rated best over 37k reviews

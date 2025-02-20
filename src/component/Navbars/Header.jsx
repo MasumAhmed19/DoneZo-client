@@ -22,14 +22,12 @@ const Header = () => {
     </>
   );
 
-  
-
   return (
-    <div>
+    <div className="p-5">
       <div className="container mx-auto">
         <div className="navbar ">
           <div className="flex-1">
-            <a className="text-xl">DoneZO</a>
+            <Link to='/' className="text-2xl font-semibold text-gray-900">DoneZO</Link>
           </div>
           <div className="flex-none">
             <ul className="menu menu-horizontal px-1 flex gap-4">
