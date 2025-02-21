@@ -1,3 +1,4 @@
+import Profile from "../../component/leftbar/Profile";
 import AddTask from "./TaskForm/AddTask";
 
 const Dashboard = () => {
@@ -9,7 +10,9 @@ const Dashboard = () => {
         {/* Left Sidebar */}
         <aside className="md:col-span-3 space-y-6 bg-white rounded-xl shadow-md">
           {/* Profile and Task Summary */}
-          <div className=" p-4 rounded-lg ">Profile</div>
+          <div className=" p-4 rounded-lg ">
+              <Profile />
+          </div>
           {/* Daily Stats */}
           <div className="p-4 rounded-lg ">Daily Stats</div>
           {/* Weekly Stats */}
