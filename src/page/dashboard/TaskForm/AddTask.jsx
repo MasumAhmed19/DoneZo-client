@@ -3,10 +3,15 @@ import { GoPlusCircle } from "react-icons/go";
 import TaskModal from "../../../component/popup/TaskModal";
 import axios from "axios";
 import useAuth from "../../../hook/useAuth";
+import TaskSection from "../Task/TaskSection";
+import { useQuery } from "@tanstack/react-query";
+
+
 
 const AddTask = () => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const { user } = useAuth();
+  const [flag, setFlag] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,6 +38,7 @@ const AddTask = () => {
       description,
       email: user?.email,
       category,
+      order: 0,
       taskTime,
       taskDate,
     };
@@ -42,6 +48,8 @@ const AddTask = () => {
         `${import.meta.env.VITE_URL}/tasks`,
         taskData
       );
+      setFlag(true)
+
       console.log(res.data);
     } catch (err) {
       console.log("error in adding task-->", err);
@@ -54,9 +62,9 @@ const AddTask = () => {
   return (
     <div>
       <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-        <div className="mx-auto ">
+        <div className="mx-auto space-y-8">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl text-gray-800 font-bold sm:text-2xl ">
+            <h2 className="text-xl text-gray-800 font-semibold">
               Task Dashboard
             </h2>
             <div
@@ -66,6 +74,10 @@ const AddTask = () => {
               <GoPlusCircle />
               Add Task
             </div>
+          </div>
+          {/* Column Component */}
+          <div className="">
+              <TaskSection setFlag={setFlag}  flag={flag} />
           </div>
         </div>
       </div>

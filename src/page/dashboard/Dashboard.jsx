@@ -20,7 +20,7 @@ const Dashboard = () => {
         </aside>
 
         {/* Main Content */}
-        <main className="md:col-span-9 space-y-6">
+        <main className="md:col-span-9 space-y-6 ">
           {/* Search & Sort */}
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="w-full md:w-2/3 bg-white p-3 rounded-lg shadow-md">
