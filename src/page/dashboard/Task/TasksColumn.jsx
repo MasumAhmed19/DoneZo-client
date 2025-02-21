@@ -9,12 +9,12 @@ const fetchTasks = async (id, email) => {
   return data;
 };
 
-const TasksColumn = ({ id, setFlag, flag}) => {
+const TasksColumn = ({ taskCat, setFlag, flag}) => {
   const { user } = useAuth();
 
   const { data: taskData, isLoading, isError, refetch } = useQuery({
-    queryKey: ["tasks", id, user?.email],
-    queryFn: () => fetchTasks(id, user?.email),
+    queryKey: ["tasks", taskCat, user?.email],
+    queryFn: () => fetchTasks(taskCat, user?.email),
     enabled: !!user?.email, 
   });
 
@@ -30,7 +30,7 @@ const TasksColumn = ({ id, setFlag, flag}) => {
     <div className="p-2">
       {/* Column Header */}
       <div className="flex justify-between items-center">
-        <h2 className="font-semibold text-md mb-2">{id.toUpperCase()}</h2>
+        <h2 className="font-semibold text-md mb-2">{taskCat.toUpperCase()}</h2>
       </div>
       <div className="border border-[#f6f6f6] mb-5"></div>
 

@@ -7,6 +7,7 @@ import { MdOutlineDragIndicator } from "react-icons/md";
 const TaskCard = ({task, refetch}) => {
 
   const handleDelete = async (id) => {
+    console.log("okkkk")
     try {
       const res = await axios.delete(`${import.meta.env.VITE_URL}/task/${id}`);
       console.log(res.data);
@@ -15,9 +16,6 @@ const TaskCard = ({task, refetch}) => {
       console.log(error);
     }
   }
-
-
-
 
   return (
     <div className="bg-[#F9F9F9] shadow-md rounded-xl p-5 flex  justify-between w-full max-w-lg mx-auto">

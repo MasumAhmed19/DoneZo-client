@@ -1,5 +1,7 @@
 import Profile from "../../component/leftbar/Profile";
 import AddTask from "./TaskForm/AddTask";
+import TaskTemp from "../../component/Tasks/TaskTemp";
+import TaskContainer from "./DragTask/TaskContainer";
 
 const Dashboard = () => {
   return (
@@ -35,8 +37,10 @@ const Dashboard = () => {
           <div className="bg-white p-4 rounded-lg shadow-md">
             {/* Add Task */}
             <div>
-                <AddTask />
+                {/* <AddTask /> */}
             </div>
+            <TaskContainer />
+
             {/* Three Column for three category */}
           </div>
 
