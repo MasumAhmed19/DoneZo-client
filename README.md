@@ -2,7 +2,7 @@ Thanks for the clarification! I’ve updated the README to reflect that **@hello
 
 ---
 
-# 📝 DONEZO – Get things done in style 
+# 📝 DONEZO – Task Management App  
 
 A simple and intuitive **Task Management Application** where users can **add, edit, delete, and reorder tasks** seamlessly using a **drag-and-drop interface** powered by **@hello-pangea/dnd**. Tasks are categorized into three sections: **To-Do, In Progress, and Done**, with instant data persistence using Firebase.  
 

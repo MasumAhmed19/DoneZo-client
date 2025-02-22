@@ -4,7 +4,6 @@ import TaskModal from "../../../component/popup/TaskModal";
 import axios from "axios";
 import useAuth from "../../../hook/useAuth";
 import useTasks from "../../../hook/useTasks";
-import ScrollUpBtn from "../../../component/Buttons/ScrollUpBtn";
 
 const AddTask = () => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
@@ -60,19 +59,19 @@ const AddTask = () => {
 
   return (
     <div>
-      <div className="max-w-[85rem] px-4 -mt-2 sm:px-6 lg:px-8 mx-auto">
+      <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <div className="mx-auto space-y-8">
-          <div className="flex items-center justify-between bg-[#272C35] p-5 rounded-md">
-            <h2 className="text-2xl text-white font-semibold">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl text-gray-800 font-semibold">
               Task Dashboard
             </h2>
             <div
               onClick={() => setIsAddTaskOpen(true)}
-              className="flex gap-2 items-center text-white cursor-pointer"
+              className="flex gap-2 items-center cursor-pointer"
             >
-              <ScrollUpBtn buttonText="Add TODO" link="/dashboard" />
+              <GoPlusCircle />
+              Add Task
             </div>
-
           </div>
           {/* Column Component */}
           <div className="">

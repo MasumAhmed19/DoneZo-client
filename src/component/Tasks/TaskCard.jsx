@@ -45,18 +45,18 @@ const TaskCard = ({ task }) => {
 
   return (
     <div>
-      <div className="bg-white/20 backdrop-blur-lg shadow rounded-xl p-5 flex justify-between w-full max-w-lg mx-auto">
+      <div className="bg-white shadow rounded-xl p-5 flex justify-between w-full max-w-lg mx-auto">
         {/* Left Section: Task Info */}
         <div className="flex items-start gap-4 flex-1">
           {/* Drag Handle */}
           <div className="cursor-grab active:cursor-grabbing">
-            <MdOutlineDragIndicator className="text-white mt-1" />
+            <MdOutlineDragIndicator className="text-gray-400 mt-1" />
           </div>
 
           {/* Task Content */}
           <div className="flex-1">
-            <h3 className="text-lg font-semibold text-white">{task.title}</h3>
-            <p className="text-sm text-gray-300">{task.description}</p>
+            <h3 className="text-lg font-semibold text-black">{task.title}</h3>
+            <p className="text-sm text-gray-500">{task.description}</p>
             <div className="mt-2 px-3 py-1 bg-gray-200 text-gray-700 text-xs font-medium rounded-lg inline-block">
               <p className="">
                 {task?.taskTime
@@ -81,10 +81,10 @@ const TaskCard = ({ task }) => {
 
 
         <div className="flex flex-col items-end justify-between gap-3">
-          <FiEdit2 onClick={()=>setIsEditTaskOpen(true)} className="text-white hover:text-black cursor-pointer" size={16} />
+          <FiEdit2 onClick={()=>setIsEditTaskOpen(true)} className="text-gray-500 hover:text-black cursor-pointer" size={16} />
           <FiTrash2
             onClick={() => handleDelete(task._id)}
-            className="text-white hover:text-black cursor-pointer"
+            className="text-gray-500 hover:text-black cursor-pointer"
             size={16}
           />
         </div>
@@ -134,8 +134,6 @@ const TaskCard = ({ task }) => {
         </form>
       </TaskModal>
     </div>
-
-    
   );
 };
 
