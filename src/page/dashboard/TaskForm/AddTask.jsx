@@ -5,6 +5,7 @@ import axios from "axios";
 import useAuth from "../../../hook/useAuth";
 import TaskSection from "../Task/TaskSection";
 import { useQuery } from "@tanstack/react-query";
+import useAllTasks from "../../../hook/useAllTasks";
 
 
 
@@ -12,13 +13,16 @@ const AddTask = () => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const { user } = useAuth();
   const [flag, setFlag] = useState(false);
+  const [allTasks] = useAllTasks()
+  // const {todo, inpreogress, done} = allTasks || {}
+  // console.log(todo)
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const title = form.task_name.value;
     const description = form.task_description.value;
-    const category = form.task_category.value;
     const time = new Date();
 
     const taskTime = time.toLocaleTimeString("en-US", {
@@ -37,8 +41,8 @@ const AddTask = () => {
       title,
       description,
       email: user?.email,
-      category,
-      order: 0,
+      category: 'todo',
+      order: allTasks?.todo?.length + 1 || 0,
       taskTime,
       taskDate,
     };
@@ -77,7 +81,6 @@ const AddTask = () => {
           </div>
           {/* Column Component */}
           <div className="">
-              <TaskSection setFlag={setFlag}  flag={flag} />
           </div>
         </div>
       </div>
@@ -90,7 +93,7 @@ const AddTask = () => {
           onSubmit={handleSubmit}
           className="space-y-4"
         >
-          <div className="mb-4 sm:mb-8">
+          <div className="">
             <input
               type="text"
               name="task_name"
@@ -100,7 +103,7 @@ const AddTask = () => {
               placeholder="Task Name"
             />
           </div>
-          <div className="form-control">
+          {/* <div className="form-control">
             <select
               defaultValue="default"
               className="select select-bordered w-full bg-white text-black border-gray-300 focus:border-gray-600 focus:ring-gray-600"
@@ -117,7 +120,7 @@ const AddTask = () => {
               <option value="inprogress">In Progress</option>
               <option value="done">Done</option>
             </select>
-          </div>
+          </div> */}
 
           <div className="form-control">
             <div>
