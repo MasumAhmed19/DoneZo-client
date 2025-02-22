@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { MdDelete, MdModeEdit } from "react-icons/md";
 import useTasks from "../../../hook/useTasks";
 import TaskCard from "../../../component/Tasks/TaskCard";
+import TaskBoardSkeleton from "./TaskBoardSkeleton";
 
 const categories = ["todo", "inprogress", "done"];
 
@@ -85,7 +86,7 @@ const TaskBoard = () => {
     <DragDropContext onDragEnd={handleOnDragEnd}>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
         {isLoading ? (
-          <div>loading</div>
+          <TaskBoardSkeleton />
         ) : taskList.length > 0 ? (
           taskList.map((taskCategory, categoryIndex) => (
             <Droppable
@@ -96,9 +97,9 @@ const TaskBoard = () => {
                 <div
                   ref={provided.innerRef}
                   {...provided.droppableProps}
-                  className="bg-white p-4 shadow rounded"
+                  className="bg-[#272C35] p-4 shadow rounded"
                 >
-                  <h2 className="text-xl font-bold ">
+                  <h2 className="text-xl font-semibold text-white">
                     {taskCategory.category === "todo"
                       ? "To Do"
                       : taskCategory.category === "inProgress"
@@ -135,7 +136,7 @@ const TaskBoard = () => {
             </Droppable>
           ))
         ) : (
-          <h2 className="font-semibold text-center my-20 text-3xl text-primary">
+          <h2 className=" text-center my-20 text-3xl text-white">
             No tasks available
           </h2>
         )}
