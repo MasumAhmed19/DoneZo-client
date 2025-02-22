@@ -15,7 +15,7 @@ const TaskBoard = () => {
   const { userTasks, refetch, isLoading } = useTasks();
   const [taskList, setTaskList] = useState(userTasks || []);
 
-  // console.log(userTasks);
+  console.log(userTasks);
 
   useEffect(() => {
     if (!isLoading && userTasks) {

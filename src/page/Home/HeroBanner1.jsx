@@ -1,37 +1,33 @@
-import { useState } from "react";
-import { ImSpinner } from "react-icons/im";
-import { Checkbox } from "antd";
-import Rated from "./Rated";
+import React from "react";
+import { Link } from "react-router-dom";
 import ScrollUpBtn from "../../component/Buttons/ScrollUpBtn";
 
-const HeroBanner1 = () => {
+const HomePage = () => {
   return (
-    <div className="relative">
-      {/* <div className="absolute flex items-center justify-center -z-10">
-        <div className="w-[300px] h-[300px] bg-[#62DF50] opacity-20 rounded-lg"></div>
-      </div> */}
+    <div className="relative min-h-screen bg-black overflow-hidden flex flex-col items-center justify-center px-6 sm:px-12">
+      {/* Gradient Background */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="w-[60rem] h-[60rem] bg-gradient-to-r from-[#62DF50] to-black opacity-30 blur-[5rem] rounded-full"></div>
+      </div>
 
-      <div className="container mx-auto py-[70px] min-h-screen">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center space-y-5">
-            <h1 className="text-3xl text-gray-800 font-bold sm:text-5xl lg:text-6xl lg:leading-tight">
-              Your Go-To Platform for{" "}
-              <span className="text-[#62DF50]">to boost productivity</span>
-            </h1>
-            <p className="text-gray-500">
-              Manage your tasks efficiently with a seamless drag-and-drop
-              interface. Stay organized, track progress, and get things done
-              effortlessly.
-            </p>
-          </div>
-        </div>
+      {/* Main Content */}
+      <div className="relative z-10 text-center max-w-4xl -mt-80">
+        <h1 className="text-4xl sm:text-6xl font-bold text-white">
+          Organize Your Tasks <span className="text-[#62DF50]">Effortlessly</span>
+        </h1>
+        <p className="mt-4 text-lg text-gray-400">
+          Plan, manage, and complete your tasks seamlessly with our smart task tracker.
+        </p>
 
-        <div className="flex items-start justify-center py-5">
-          <ScrollUpBtn buttonText="Get Started" link="/dashboard" />
+        {/* Buttons */}
+        <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
+          <ScrollUpBtn buttonText="Go to Dashboard" link="/dashboard" />
         </div>
       </div>
+
+
     </div>
   );
 };
 
-export default HeroBanner1;
+export default HomePage;

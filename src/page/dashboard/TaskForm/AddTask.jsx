@@ -39,9 +39,11 @@ const AddTask = () => {
       taskDate,
     };
 
+    console.log(taskData)
+
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_URL}/tasks`,
+        `${import.meta.env.VITE_URL}/add-tasks`,
         taskData
       );
       refetch()
