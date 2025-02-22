@@ -3,20 +3,12 @@ import { GoPlusCircle } from "react-icons/go";
 import TaskModal from "../../../component/popup/TaskModal";
 import axios from "axios";
 import useAuth from "../../../hook/useAuth";
-import TaskSection from "../Task/TaskSection";
-import { useQuery } from "@tanstack/react-query";
-import useAllTasks from "../../../hook/useAllTasks";
-
-
+import useTasks from "../../../hook/useTasks";
 
 const AddTask = () => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const { user } = useAuth();
-  const [flag, setFlag] = useState(false);
-  const [allTasks] = useAllTasks()
-  // const {todo, inpreogress, done} = allTasks || {}
-  // console.log(todo)
-
+  const {refetch} = useTasks()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,7 +34,7 @@ const AddTask = () => {
       description,
       email: user?.email,
       category: 'todo',
-      order: allTasks?.todo?.length + 1 || 0,
+      order: 0,
       taskTime,
       taskDate,
     };
@@ -52,7 +44,7 @@ const AddTask = () => {
         `${import.meta.env.VITE_URL}/tasks`,
         taskData
       );
-      setFlag(true)
+      refetch()
 
       console.log(res.data);
     } catch (err) {
@@ -87,7 +79,7 @@ const AddTask = () => {
       <TaskModal
         isOpen={isAddTaskOpen}
         closeModal={() => setIsAddTaskOpen(false)}
-        title="Edit Task"
+        title="Add To Do"
       >
         <form
           onSubmit={handleSubmit}

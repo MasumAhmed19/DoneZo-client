@@ -10,7 +10,7 @@ const Dashboard = () => {
   const { user } = useAuth();
 
   return (
-    <div className="bg-[#f9f9f9]">
+    <div className="bg-[#f9f9f9] dark:bg-black">
       <div className="mx-auto p-5 md:p-10">
         <div className="min-h-screen p-4 md:p-6">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
@@ -48,8 +48,7 @@ const Dashboard = () => {
                   <TaskBoard />
                 </div>
 
-
-                {/* Three Column for three category */}
+                
               </div>
             </main>
           </div>

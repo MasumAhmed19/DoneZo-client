@@ -6,6 +6,7 @@ import Home from "../page/Home/Home";
 import Login from "../page/Login/Login";
 import PrivateRoute from "./PrivateRoute";
 
+
 export const router = createBrowserRouter([
     {
       path: "/",
@@ -25,5 +26,5 @@ export const router = createBrowserRouter([
         element: <PrivateRoute><Dashboard /></PrivateRoute>
     }
     
-  ]);
+]);
   

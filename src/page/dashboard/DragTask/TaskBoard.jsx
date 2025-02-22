@@ -1,102 +1,144 @@
 // components/TaskBoard.jsx
 import { useEffect, useState } from "react";
-import { DragDropContext } from "@hello-pangea/dnd";
+import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import axios from "axios";
 import useAuth from "../../../hook/useAuth";
-import { CategoryColumn } from "./CategoryColumn";
-import useAllTasks from "../../../hook/useAllTasks";
+import { Link } from "react-router-dom";
+import { MdDelete, MdModeEdit } from "react-icons/md";
+import useTasks from "../../../hook/useTasks";
+import TaskCard from "../../../component/Tasks/TaskCard";
 
 const categories = ["todo", "inprogress", "done"];
 
 const TaskBoard = () => {
-    const { user } = useAuth();
-    const [allTasks, isLoading, refetch] = useAllTasks();
-    const [sortedTasks, setSortedTasks] = useState(null);
-    const [tasksByStatus, setTasksByStatus] = useState({
-        todo: [],
-        inprogress: [],
-        done: [],
-    });
+  const { user } = useAuth();
+  const { userTasks, refetch, isLoading } = useTasks();
+  const [taskList, setTaskList] = useState(userTasks || []);
 
-    useEffect(() => {
-        if (allTasks) {
-            const sortedTasks = {
-                todo: allTasks.todo || [],
-                inprogress: allTasks.inprogress || [],
-                done: allTasks.done || []
-            };
-    
-            setTasksByStatus(sortedTasks);
-        } else {
-            setTasksByStatus({
-                todo: [],
-                inprogress: [],
-                done: []
-            });
-        }
-    }, [allTasks]);
+  // console.log(userTasks);
 
-    console.log(tasksByStatus)
-
-    if (isLoading) {
-        return <div>Loading tasks...</div>;
+  useEffect(() => {
+    if (!isLoading && userTasks) {
+      setTaskList(userTasks);
+    } else {
+      setTaskList([]);
     }
+  }, [userTasks, isLoading]);
 
-  const handleDragEnd = async (result) => {
+  const handleOnDragEnd = (result) => {
     const { source, destination } = result;
 
+    if (!destination) return;
     if (
-      !destination ||
-      (source.droppableId === destination.droppableId &&
-        source.index === destination.index)
+      source.droppableId === destination.droppableId &&
+      source.index === destination.index
     )
       return;
 
-    // Optimistic update
-    const newTasks = reorderTasks(tasksByStatus, source, destination);
+    // Reordering within the same category
+    if (source.droppableId === destination.droppableId) {
+      const updatedTasks = [...taskList];
+      const [movedTask] = updatedTasks[source.droppableId].tasks.splice(
+        source.index,
+        1
+      );
+      updatedTasks[destination.droppableId].tasks.splice(
+        destination.index,
+        0,
+        movedTask
+      );
+      setTaskList(updatedTasks);
+    } else {
+      // Moving task between categories
+      const sourceCategory = taskList[source.droppableId];
+      const destinationCategory = taskList[destination.droppableId];
+      const [movedTask] = sourceCategory.tasks.splice(source.index, 1);
+      movedTask.category = categories[destination.droppableId];
+      destinationCategory.tasks.splice(destination.index, 0, movedTask);
+      setTaskList([...taskList]);
 
-    setTasksByStatus(newTasks);
-
-    try {
-      await axios.patch(`/api/tasks/${result.draggableId}`, {
-        sourceStatus: source.droppableId,
-        sourceIndex: source.index,
-        destStatus: destination.droppableId,
-        destIndex: destination.index,
-      });
-    } catch (error) {
-      console.error("Error updating task:", error);
-      setTasksByStatus(tasksByStatus);
+      saveTaskDataToDB(movedTask);
     }
   };
 
-  const reorderTasks = (tasks, source, destination) => {
-    const sourceClone = [...tasks[source.droppableId]];
-    const destClone =
-      source.droppableId === destination.droppableId
-        ? sourceClone
-        : [...tasks[destination.droppableId]];
-
-    const [movedTask] = sourceClone.splice(source.index, 1);
-    destClone.splice(destination.index, 0, movedTask);
-
-    return {
-      ...tasks,
-      [source.droppableId]: sourceClone,
-      [destination.droppableId]: destClone,
-    };
+  const saveTaskDataToDB = async (task) => {
+    const updatedTask = { ...task, modified: new Date().toISOString() };
+    try {
+      const res = await axios.put(
+        `${import.meta.env.VITE_URL}/tasks/dnd/${task._id}`,
+        updatedTask
+      );
+      if (res.data.success) {
+        refetch();
+      }
+    } catch (error) {
+      console.error("Operation failed, Please try again!");
+      console.error("Error updating task:", error);
+    }
   };
 
+  if (isLoading) {
+    return <div>loading</div>;
+  }
+
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
-      <div className="flex gap-4 p-4 min-h-screen bg-gray-50">
-        {categories.map((category) => (
-          <CategoryColumn
-            key={category}
-            status={category}
-            tasks={tasksByStatus[category]}
-          />
-        ))}
+    <DragDropContext onDragEnd={handleOnDragEnd}>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+        {isLoading ? (
+          <div>loading</div>
+        ) : taskList.length > 0 ? (
+          taskList.map((taskCategory, categoryIndex) => (
+            <Droppable
+              key={taskCategory.category}
+              droppableId={categoryIndex.toString()}
+            >
+              {(provided) => (
+                <div
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  className="bg-white p-4 shadow rounded"
+                >
+                  <h2 className="text-xl font-bold ">
+                    {taskCategory.category === "todo"
+                      ? "To Do"
+                      : taskCategory.category === "inProgress"
+                      ? "In Progress"
+                      : "Done"}
+                  </h2>
+
+                  <div className="mt-4">
+                    <ul >
+                      {taskCategory.tasks.map((t, taskIndex) => (
+                        <Draggable
+                          key={t._id}
+                          draggableId={t._id.toString()}
+                          index={taskIndex}
+                        >
+                          {(provided) => (
+                            <li
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              className="border-accent py-2"
+                            >
+                              <TaskCard task={t} />
+
+                            </li>
+                          )}
+                        </Draggable>
+                      ))}
+                    </ul>
+                    {provided.placeholder}
+                  </div>
+                </div>
+              )}
+            </Droppable>
+          ))
+        ) : (
+          <h2 className="font-semibold text-center my-20 text-3xl text-primary">
+            No tasks available
+          </h2>
+        )}
       </div>
     </DragDropContext>
   );
