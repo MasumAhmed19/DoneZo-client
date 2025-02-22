@@ -5,6 +5,7 @@ import { fetchTasks } from "../../api/utilitis";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import TaskBoard from "./DragTask/TaskBoard";
+import WeeklyRating from "../../component/leftbar/WeeklyRating";
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -15,15 +16,14 @@ const Dashboard = () => {
         <div className="min-h-screen p-4 md:p-6">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
             {/* Left Sidebar */}
-            <aside className="md:col-span-3 space-y-6 bg-white rounded-xl shadow-md">
+            <aside className="md:col-span-3 space-y-6 bg-[#272C35] rounded-xl shadow-md">
               {/* Profile and Task Summary */}
               <div className=" p-4 rounded-lg ">
                 <Profile />
               </div>
               {/* Daily Stats */}
-              <div className="p-4 rounded-lg ">Daily Stats</div>
-              {/* Weekly Stats */}
-              <div className="p-4 rounded-lg ">Weekly Stats</div>
+              <div className="p-4 rounded-lg "><WeeklyRating></WeeklyRating></div>
+
             </aside>
 
             {/* Main Content */}
@@ -39,7 +39,7 @@ const Dashboard = () => {
               </div>
 
               {/* Tasks Section */}
-              <div className="bg-white p-4 rounded-lg shadow-md pb-[50px]">
+              <div className="bg-[#232230] p-4 rounded-lg shadow-md pb-[50px]">
                 {/* Add Task */}
                 <div>
                   <AddTask />

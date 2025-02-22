@@ -57,25 +57,7 @@ const TaskCard = ({ task }) => {
           <div className="flex-1">
             <h3 className="text-lg font-semibold text-black">{task.title}</h3>
             <p className="text-sm text-gray-500">{task.description}</p>
-            <div className="mt-2 px-3 py-1 bg-gray-200 text-gray-700 text-xs font-medium rounded-lg inline-block">
-              <p className="">
-                {task?.taskTime
-                  ? `Modified: ${new Date(task.modified).toLocaleString("en-GB", {
-                      day: "2-digit",
-                      month: "short",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      hour12: true,
-                    })}`
-                  : `Created: ${new Date(task.timestamp).toLocaleString("en-GB", {
-                      day: "2-digit",
-                      month: "short",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      hour12: true,
-                    })}`}
-              </p>
-            </div>
+
           </div>
         </div>
 
